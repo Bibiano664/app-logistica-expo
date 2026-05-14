@@ -1,0 +1,42 @@
+name: CI - App Logistica Expo
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality-check:
+    name: Validaciones de calidad
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar tipos con TypeScript
+        run: npx tsc --noEmit
+
+      - name: Ejecutar lint
+        run: npm run lint
+
+      # Futuro: pruebas automatizadas
+      # - name: Ejecutar pruebas
+      #   run: npm test
+
+      # Futuro: build con Expo
+      # - name: Build futuro
+      #   run: npx expo export
