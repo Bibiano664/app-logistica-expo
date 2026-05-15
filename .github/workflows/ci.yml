@@ -22,21 +22,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm install
 
       - name: Verificar tipos con TypeScript
         run: npx tsc --noEmit
 
       - name: Ejecutar lint
         run: npm run lint
-
-      # Futuro: pruebas automatizadas
-      # - name: Ejecutar pruebas
-      #   run: npm test
-
-      # Futuro: build con Expo
-      # - name: Build futuro
-      #   run: npx expo export
