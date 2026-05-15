@@ -1,33 +1,56 @@
+# Nombre del workflow que aparecerá en la pestaña Actions de GitHub
 name: CI - App Logistica Expo
 
+# Eventos que disparan el pipeline
 on:
+  # Se ejecuta cuando se suben cambios a la rama main
   push:
     branches:
       - main
 
+  # Se ejecuta cuando se abre o actualiza un Pull Request hacia main
   pull_request:
     branches:
       - main
 
+# Jobs que se ejecutarán dentro del workflow
 jobs:
   quality-check:
+    # Nombre visible del job
     name: Validaciones de calidad
+
+    # Máquina virtual donde correrá el pipeline
     runs-on: ubuntu-latest
 
     steps:
+      # Descarga el código del repositorio dentro del runner
       - name: Clonar repositorio
         uses: actions/checkout@v4
 
+      # Configura Node.js para usar la misma versión del proyecto
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
+      # Instala las dependencias usando package-lock.json
       - name: Instalar dependencias
-        run: npm install
+        run: npm ci
 
+      # Revisa errores de TypeScript sin generar archivos
       - name: Verificar tipos con TypeScript
         run: npx tsc --noEmit
 
+      # Ejecuta el linter configurado en el proyecto
       - name: Ejecutar lint
         run: npm run lint
+
+      # Espacio reservado para pruebas futuras
+      # Cuando el proyecto tenga pruebas, se puede activar este bloque
+      # - name: Ejecutar pruebas
+      #   run: npm test
+
+      # Espacio reservado para build futuro con Expo/EAS
+      # - name: Build futuro
+      #   run: npx expo export
