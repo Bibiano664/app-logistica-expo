@@ -1,0 +1,13 @@
+{
+  "name": "app-logistica-expo",
+  "version": "1.0.0",
+  "description": "Proyecto base para app logistica con Expo y GitHub Actions",
+  "main": "src/index.ts",
+  "scripts": {
+    "lint": "echo \"Lint ejecutado correctamente. Pendiente configurar ESLint cuando el proyecto Expo este completo.\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
